@@ -109,4 +109,12 @@ public class DatePickerFormItem: FormItem {
 		innerValue = value
 		valueDidChangeBlock(value)
 	}
+    
+    public var obtainTitleWidth: (Void) -> CGFloat = {
+        return 0
+    }
+    
+    public var assignTitleWidth: (CGFloat) -> Void = { (width: CGFloat) in
+        // do nothing
+    }
 }

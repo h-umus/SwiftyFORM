@@ -196,6 +196,19 @@ class PopulateTableView: FormItemVisitor {
 			SwiftyFormLog("value did change \(date)")
 			weakObject?.valueDidChange(date)
 		}
+        
+        object.obtainTitleWidth = {
+            if let cell = weakCell {
+                return (cell.textLabel?.intrinsicContentSize.width)!
+            }
+            return 0
+        }
+        object.assignTitleWidth = { (width: CGFloat) in
+            if let cell = weakCell {
+                cell.titleWidthMode = DatePickerToggleCell.TitleWidthMode.assign(width: width)
+                cell.setNeedsUpdateConstraints()
+            }
+        }
 	}
 	
 	func mapDatePickerMode(_ mode: DatePickerFormItemMode) -> UIDatePickerMode {

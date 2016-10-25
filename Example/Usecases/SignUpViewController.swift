@@ -18,7 +18,7 @@ class SignUpViewController: FormViewController {
 		builder += email
 		builder += maleOrFemale
 		builder += birthday
-		builder.alignLeft([userName, password, email])
+		builder.alignLeft([userName, password, email, birthday])
 		builder += SectionFormItem()
 		builder += subscribeToNewsletter
 		builder += SectionFooterTitleFormItem().title("There is no way to unsubscribe our service")

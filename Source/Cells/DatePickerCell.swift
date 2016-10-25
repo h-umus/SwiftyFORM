@@ -7,6 +7,16 @@ struct DatePickerCellConstants {
 	}
 }
 
+public class DatePickerFormItemCellSizes {
+    public let titleLabelFrame: CGRect
+    public let textFieldFrame: CGRect
+    
+    public init(titleLabelFrame: CGRect, textFieldFrame: CGRect) {
+        self.titleLabelFrame = titleLabelFrame
+        self.textFieldFrame = textFieldFrame
+    }
+}
+
 
 public class DatePickerCellModel {
 	var title: String = ""
@@ -38,6 +48,7 @@ This causes the inline date picker to expand/collapse
 public class DatePickerToggleCell: UITableViewCell, SelectRowDelegate, DontCollapseWhenScrolling, AssignAppearance {
 	weak var expandedCell: DatePickerExpandedCell?
 	public let model: DatePickerCellModel
+    public let dateLabel = UILabel()
 
 	public init(model: DatePickerCellModel) {
 		/*
@@ -57,6 +68,8 @@ public class DatePickerToggleCell: UITableViewCell, SelectRowDelegate, DontColla
 		super.init(style: .value1, reuseIdentifier: nil)
 		selectionStyle = model.selectionStyle
 		textLabel?.text = model.title
+        
+        contentView.addSubview(dateLabel)
 		
 		updateValue()
 		
@@ -105,9 +118,55 @@ public class DatePickerToggleCell: UITableViewCell, SelectRowDelegate, DontColla
 		dateFormatter.timeStyle = obtainTimeStyle(model.datePickerMode)
 		return dateFormatter.string(from: date)
 	}
+    
+    public enum TitleWidthMode {
+        case auto
+        case assign(width: CGFloat)
+    }
+    
+    public var titleWidthMode: TitleWidthMode = .auto
+    
+    public func compute(_ cellWidth: CGFloat) -> DatePickerFormItemCellSizes {
+        
+        var titleLabelFrame = CGRect.zero
+        var textFieldFrame = CGRect.zero
+        let veryTallCell = CGRect(x: 0, y: 0, width: cellWidth, height: CGFloat.greatestFiniteMagnitude)
+        let area = veryTallCell.insetBy(dx: 16, dy: 0)
+        
+        let (topRect, _) = area.divided(atDistance: 44, from: .minYEdge)
+        if true {
+            let size = textLabel?.sizeThatFits(area.size)
+            var titleLabelWidth = size!.width
+            
+            switch titleWidthMode {
+            case .auto:
+                break
+            case let .assign(width):
+                let w = CGFloat(width)
+                if w > titleLabelWidth {
+                    titleLabelWidth = w
+                }
+            }
+            
+            var (slice, remainder) = topRect.divided(atDistance: titleLabelWidth, from: .minXEdge)
+            titleLabelFrame = slice
+            (_, remainder) = remainder.divided(atDistance: 10, from: .minXEdge)
+            remainder.size.width += 4
+            textFieldFrame = remainder
+        }
+        
+        return DatePickerFormItemCellSizes(titleLabelFrame: titleLabelFrame, textFieldFrame: textFieldFrame)
+    }
+    
+    public override func layoutSubviews() {
+        super.layoutSubviews()
+        let sizes: DatePickerFormItemCellSizes = compute(bounds.width)
+        textLabel?.frame = sizes.titleLabelFrame
+        dateLabel.frame = sizes.textFieldFrame
+    }
 
 	public func updateValue() {
-		detailTextLabel?.text = humanReadableValue
+		dateLabel.text = humanReadableValue
 	}
 	
 	func setDateWithoutSync(_ date: Date, animated: Bool) {
@@ -212,12 +271,12 @@ public class DatePickerToggleCell: UITableViewCell, SelectRowDelegate, DontColla
 	
 	public func assignDefaultColors() {
 		textLabel?.textColor = UIColor.black
-		detailTextLabel?.textColor = UIColor.gray
+		dateLabel.textColor = UIColor.gray
 	}
 	
 	public func assignTintColors() {
 		textLabel?.textColor = tintColor
-		detailTextLabel?.textColor = tintColor
+		dateLabel.textColor = tintColor
 	}
 }
 

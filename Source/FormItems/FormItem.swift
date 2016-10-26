@@ -1,6 +1,7 @@
 // MIT license. Copyright (c) 2016 SwiftyFORM. All rights reserved.
 import UIKit
 
+let kValueLabelColor = UIColor(red: 142/255, green: 142/255, blue: 148/255, alpha: 1)
 
 public protocol FormItemVisitor {
 	func visit(object: AttributedTextFormItem)

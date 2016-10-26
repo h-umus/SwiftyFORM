@@ -73,7 +73,9 @@ public class TextFieldFormItemCell: UITableViewCell, UITextFieldDelegate, CellHe
 		titleLabel.font = UIFont.preferredFont(forTextStyle: UIFontTextStyle.body)
 		textField.font  = UIFont.preferredFont(forTextStyle: UIFontTextStyle.body)
 		errorLabel.font = UIFont.preferredFont(forTextStyle: UIFontTextStyle.caption2)
-		
+        
+		textField.textColor = kValueLabelColor
+        
 		errorLabel.textColor = UIColor.red
 		errorLabel.numberOfLines = 0
 		

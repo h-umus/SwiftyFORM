@@ -3,11 +3,11 @@ import UIKit
 
 public class OptionViewControllerCellSizes {
     public let titleLabelFrame: CGRect
-    public let optionLabelFrame: CGRect
+    public let valueLabelFrame: CGRect
     
-    public init(titleLabelFrame: CGRect, optionLabelFrame: CGRect) {
+    public init(titleLabelFrame: CGRect, valueLabelFrame: CGRect) {
         self.titleLabelFrame = titleLabelFrame
-        self.optionLabelFrame = optionLabelFrame
+        self.valueLabelFrame = valueLabelFrame
     }
 }
 
@@ -23,7 +23,7 @@ public struct OptionViewControllerCellModel {
 }
 
 public class OptionViewControllerCell: UITableViewCell, SelectRowDelegate {
-    public let optionLabel = UILabel()
+    public let valueLabel = UILabel()
 	fileprivate let model: OptionViewControllerCellModel
 	fileprivate var selectedOptionRow: OptionRowModel? = nil
 	fileprivate weak var parentViewController: UIViewController?
@@ -32,10 +32,11 @@ public class OptionViewControllerCell: UITableViewCell, SelectRowDelegate {
 		self.parentViewController = parentViewController
 		self.model = model
 		self.selectedOptionRow = model.selectedOptionRow
-		super.init(style: .value1, reuseIdentifier: nil)
-        contentView.addSubview(optionLabel)
+		super.init(style: .default, reuseIdentifier: nil)
 		accessoryType = .disclosureIndicator
 		textLabel?.text = model.title
+        valueLabel.textColor = kValueLabelColor
+        contentView.addSubview(valueLabel)
 		updateValue()
 	}
 	
@@ -61,7 +62,7 @@ public class OptionViewControllerCell: UITableViewCell, SelectRowDelegate {
     public func compute(_ cellWidth: CGFloat) -> OptionViewControllerCellSizes {
         
         var titleLabelFrame = CGRect.zero
-        var optionLabelFrame = CGRect.zero
+        var valueLabelFrame = CGRect.zero
         let veryTallCell = CGRect(x: 0, y: 0, width: cellWidth, height: CGFloat.greatestFiniteMagnitude)
         let area = veryTallCell.insetBy(dx: 16, dy: 0)
         
@@ -73,10 +74,10 @@ public class OptionViewControllerCell: UITableViewCell, SelectRowDelegate {
             
             switch titleWidthMode {
             case .auto:
-                optionLabel.textAlignment = .right
+                valueLabel.textAlignment = .right
                 break
             case let .assign(width):
-                optionLabel.textAlignment = .left
+                valueLabel.textAlignment = .left
                 let w = CGFloat(width)
                 if w > titleLabelWidth {
                     titleLabelWidth = w
@@ -87,23 +88,23 @@ public class OptionViewControllerCell: UITableViewCell, SelectRowDelegate {
             titleLabelFrame = slice
             (_, remainder) = remainder.divided(atDistance: 10, from: .minXEdge)
             remainder.size.width += 4
-            optionLabelFrame = remainder
+            valueLabelFrame = remainder
         }
         
-        return OptionViewControllerCellSizes(titleLabelFrame: titleLabelFrame, optionLabelFrame: optionLabelFrame)
+        return OptionViewControllerCellSizes(titleLabelFrame: titleLabelFrame, valueLabelFrame: valueLabelFrame)
     }
     
     public override func layoutSubviews() {
         super.layoutSubviews()
         let sizes: OptionViewControllerCellSizes = compute(bounds.width)
         textLabel?.frame = sizes.titleLabelFrame
-        optionLabel.frame = sizes.optionLabelFrame
+        valueLabel.frame = sizes.valueLabelFrame
     }
 	
 	fileprivate func updateValue() {
 		let s = humanReadableValue()
 		SwiftyFormLog("update value \(s)")
-		optionLabel.text = s
+		valueLabel.text = s
 	}
 	
 	public func setSelectedOptionRowWithoutPropagation(_ option: OptionRowModel?) {

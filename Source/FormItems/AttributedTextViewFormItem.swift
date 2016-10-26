@@ -31,19 +31,4 @@ public class AttributedTextViewFormItem: FormItem {
     var syncCellWithValue: SyncBlock = { (string: NSAttributedString?) in
         SwiftyFormLog("sync is not overridden")
     }
-    
-    internal var innerValue: NSAttributedString?
-    public var value: NSAttributedString? {
-        get {
-            return self.innerValue
-        }
-        set {
-            self.assignValueAndSync(newValue)
-        }
-    }
-    
-    func assignValueAndSync(_ value: NSAttributedString?) {
-        innerValue = value
-        syncCellWithValue(value)
-    }
 }

@@ -14,8 +14,8 @@ class TextViewViewController: FormViewController {
 		builder += randomizeButton
 		builder += clearButton
         builder += SectionHeaderTitleFormItem(title: "Attributed Text View")
-        builder += multilineTextArea
         builder += htmlArea
+        builder += textSwitch
 	}
 
 	lazy var longSummary: TextViewFormItem = {
@@ -60,19 +60,6 @@ class TextViewViewController: FormViewController {
 		}
 		return instance
 		}()
-    
-    lazy var multilineTextArea: AttributedTextViewFormItem = {
-        let instance = AttributedTextViewFormItem()
-        let text = "Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas. Vestibulum tortor quam, feugiat vitae, ultricies eget, tempor sit amet, ante."
-        
-        var paragraphStyle = NSMutableParagraphStyle()
-        paragraphStyle.lineBreakMode = .byWordWrapping
-        paragraphStyle.alignment = .justified        
-        
-        let str = NSAttributedString.init(string: text, attributes: [NSParagraphStyleAttributeName: paragraphStyle, NSBaselineOffsetAttributeName: 0])
-        instance.title(str)
-        return instance
-    }()
 	
     lazy var htmlArea: AttributedTextViewFormItem = {
         let instance = AttributedTextViewFormItem()
@@ -85,6 +72,20 @@ class TextViewViewController: FormViewController {
         } catch {
             print(error)
         }
+        return instance
+    }()
+    
+    lazy var textSwitch: AttributedTextViewSwitchFormItem = {
+        let instance = AttributedTextViewSwitchFormItem()
+        let text = "Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas. Vestibulum tortor quam, feugiat vitae, ultricies eget, tempor sit amet, ante."
+        
+        var paragraphStyle = NSMutableParagraphStyle()
+        paragraphStyle.lineBreakMode = .byWordWrapping
+        paragraphStyle.alignment = .justified
+        
+        let str = NSAttributedString.init(string: text, attributes: [NSParagraphStyleAttributeName: paragraphStyle, NSBaselineOffsetAttributeName: 0])
+        instance.title(str)
+        instance.value = true
         return instance
     }()
     

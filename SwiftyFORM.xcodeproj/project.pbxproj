@@ -110,6 +110,8 @@
 		739649151D2B6CC100E12A96 /* AttributedTextFormItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 739649141D2B6CC000E12A96 /* AttributedTextFormItem.swift */; };
 		F6EF7DA31DC0B7C00040E722 /* AttributedTextViewFormItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = F6EF7DA21DC0B7C00040E722 /* AttributedTextViewFormItem.swift */; };
 		F6EF7DA51DC0B89B0040E722 /* AttributedTextViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = F6EF7DA41DC0B89B0040E722 /* AttributedTextViewCell.swift */; };
+		F6EF7DA71DC0F3E60040E722 /* AttributedTextViewSwitchFormItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = F6EF7DA61DC0F3E60040E722 /* AttributedTextViewSwitchFormItem.swift */; };
+		F6EF7DA91DC0F4470040E722 /* AttributedTextViewSwitchCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = F6EF7DA81DC0F4470040E722 /* AttributedTextViewSwitchCell.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -229,6 +231,8 @@
 		739649141D2B6CC000E12A96 /* AttributedTextFormItem.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AttributedTextFormItem.swift; sourceTree = "<group>"; };
 		F6EF7DA21DC0B7C00040E722 /* AttributedTextViewFormItem.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AttributedTextViewFormItem.swift; sourceTree = "<group>"; };
 		F6EF7DA41DC0B89B0040E722 /* AttributedTextViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AttributedTextViewCell.swift; sourceTree = "<group>"; };
+		F6EF7DA61DC0F3E60040E722 /* AttributedTextViewSwitchFormItem.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AttributedTextViewSwitchFormItem.swift; sourceTree = "<group>"; };
+		F6EF7DA81DC0F4470040E722 /* AttributedTextViewSwitchCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AttributedTextViewSwitchCell.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -273,6 +277,7 @@
 			children = (
 				739649141D2B6CC000E12A96 /* AttributedTextFormItem.swift */,
 				F6EF7DA21DC0B7C00040E722 /* AttributedTextViewFormItem.swift */,
+				F6EF7DA61DC0F3E60040E722 /* AttributedTextViewSwitchFormItem.swift */,
 				42108D0A1B34E9F60067FEAA /* ButtonFormItem.swift */,
 				42D0050D1B96241100986B3B /* CustomFormItem.swift */,
 				42108D0B1B34E9F60067FEAA /* DatePickerFormItem.swift */,
@@ -332,6 +337,8 @@
 			children = (
 				739649121D2B6B7400E12A96 /* AttributedTextCell.swift */,
 				F6EF7DA41DC0B89B0040E722 /* AttributedTextViewCell.swift */,
+				F6EF7DA81DC0F4470040E722 /* AttributedTextViewSwitchCell.swift */,
+				428683041B346CFE0028DB2F /* TextViewCell.swift */,
 				428682FA1B346CFE0028DB2F /* ButtonCell.swift */,
 				428682FB1B346CFE0028DB2F /* DatePickerCell.swift */,
 				428682FD1B346CFE0028DB2F /* OptionCell.swift */,
@@ -345,7 +352,6 @@
 				428683011B346CFE0028DB2F /* StepperCell.swift */,
 				428683021B346CFE0028DB2F /* SwitchCell.swift */,
 				428683031B346CFE0028DB2F /* TextFieldCell.swift */,
-				428683041B346CFE0028DB2F /* TextViewCell.swift */,
 				428683051B346CFE0028DB2F /* ViewControllerCell.swift */,
 			);
 			path = Cells;
@@ -589,6 +595,7 @@
 				42108D231B34E9F60067FEAA /* ViewControllerFormItem.swift in Sources */,
 				428683361B346CFE0028DB2F /* SwitchCell.swift in Sources */,
 				4286833A1B346CFE0028DB2F /* Command.swift in Sources */,
+				F6EF7DA71DC0F3E60040E722 /* AttributedTextViewSwitchFormItem.swift in Sources */,
 				428683311B346CFE0028DB2F /* OptionCell.swift in Sources */,
 				420F6CC71D69BBA5009D5F57 /* DontCollapseWhenScrolling.swift in Sources */,
 				425DED631D2823A600EDF891 /* SegmentedControlCell.swift in Sources */,
@@ -606,6 +613,7 @@
 				4286832E1B346CFE0028DB2F /* ButtonCell.swift in Sources */,
 				4286834F1B346CFE0028DB2F /* Operator.swift in Sources */,
 				428683411B346CFE0028DB2F /* SelectOptionDelegate.swift in Sources */,
+				F6EF7DA91DC0F4470040E722 /* AttributedTextViewSwitchCell.swift in Sources */,
 				428683421B346CFE0028DB2F /* FormTableView.swift in Sources */,
 				4286835B1B346CFE0028DB2F /* UIView+LookupTableView.swift in Sources */,
 				428683391B346CFE0028DB2F /* ViewControllerCell.swift in Sources */,

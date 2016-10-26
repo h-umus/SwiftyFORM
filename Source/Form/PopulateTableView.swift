@@ -132,6 +132,43 @@ class PopulateTableView: FormItemVisitor {
             }
         }
     }
+    
+    // MARK: AttributedTextViewSwitchFormItem
+    
+    func visit(object: AttributedTextViewSwitchFormItem) {
+        var model = AttributedTextViewSwitchCellModel()
+        model.titleAttributedText = object.title
+        
+        weak var weakObject = object
+        model.valueDidChange = { (value: Bool) in
+            SwiftyFormLog("value did change \(value)")
+            weakObject?.switchDidChange(value)
+            return
+        }
+        
+        let cell = AttributedTextViewSwitchCell(model: model)
+        cells.append(cell)
+        lastItemType = .item
+        
+        SwiftyFormLog("will assign value \(object.value)")
+        cell.setValueWithoutSync(object.value, animated: false)
+        SwiftyFormLog("did assign value \(object.value)")
+        
+        weak var weakCell = cell
+        object.syncCellWithValue = { (value: Bool, animated: Bool) in
+            SwiftyFormLog("sync value \(value)")
+            weakCell?.setValueWithoutSync(value, animated: animated)
+            
+            if let c = weakCell {
+                var m = AttributedTextViewSwitchCellModel()
+                m.titleAttributedText = c.model.titleAttributedText
+                c.model = m
+                c.loadWithModel(m)
+            }
+            return
+        }
+        
+    }
 	
 	// MARK: ButtonFormItem
 	

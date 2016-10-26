@@ -9,6 +9,7 @@ class ValidateVisitor: FormItemVisitor {
 	}
 	
 	func visit(object: AttributedTextFormItem) {}
+    func visit(object: AttributedTextViewFormItem) {}
 	func visit(object: ButtonFormItem) {}
 	func visit(object: CustomFormItem) {}
 	func visit(object: DatePickerFormItem) {}

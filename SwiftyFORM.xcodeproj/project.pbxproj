@@ -108,6 +108,8 @@
 		42FABBC41D4143650066E45A /* PrecisionSlider.swift in Sources */ = {isa = PBXBuildFile; fileRef = 42FABBC31D4143650066E45A /* PrecisionSlider.swift */; };
 		739649131D2B6B7400E12A96 /* AttributedTextCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 739649121D2B6B7400E12A96 /* AttributedTextCell.swift */; };
 		739649151D2B6CC100E12A96 /* AttributedTextFormItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 739649141D2B6CC000E12A96 /* AttributedTextFormItem.swift */; };
+		F6EF7DA31DC0B7C00040E722 /* AttributedTextViewFormItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = F6EF7DA21DC0B7C00040E722 /* AttributedTextViewFormItem.swift */; };
+		F6EF7DA51DC0B89B0040E722 /* AttributedTextViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = F6EF7DA41DC0B89B0040E722 /* AttributedTextViewCell.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -225,6 +227,8 @@
 		42FABBC31D4143650066E45A /* PrecisionSlider.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PrecisionSlider.swift; sourceTree = "<group>"; };
 		739649121D2B6B7400E12A96 /* AttributedTextCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AttributedTextCell.swift; sourceTree = "<group>"; };
 		739649141D2B6CC000E12A96 /* AttributedTextFormItem.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AttributedTextFormItem.swift; sourceTree = "<group>"; };
+		F6EF7DA21DC0B7C00040E722 /* AttributedTextViewFormItem.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AttributedTextViewFormItem.swift; sourceTree = "<group>"; };
+		F6EF7DA41DC0B89B0040E722 /* AttributedTextViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AttributedTextViewCell.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -268,6 +272,7 @@
 			isa = PBXGroup;
 			children = (
 				739649141D2B6CC000E12A96 /* AttributedTextFormItem.swift */,
+				F6EF7DA21DC0B7C00040E722 /* AttributedTextViewFormItem.swift */,
 				42108D0A1B34E9F60067FEAA /* ButtonFormItem.swift */,
 				42D0050D1B96241100986B3B /* CustomFormItem.swift */,
 				42108D0B1B34E9F60067FEAA /* DatePickerFormItem.swift */,
@@ -326,6 +331,7 @@
 			isa = PBXGroup;
 			children = (
 				739649121D2B6B7400E12A96 /* AttributedTextCell.swift */,
+				F6EF7DA41DC0B89B0040E722 /* AttributedTextViewCell.swift */,
 				428682FA1B346CFE0028DB2F /* ButtonCell.swift */,
 				428682FB1B346CFE0028DB2F /* DatePickerCell.swift */,
 				428682FD1B346CFE0028DB2F /* OptionCell.swift */,
@@ -591,6 +597,7 @@
 				42D005181B96348200986B3B /* NSBundle+LoadView.swift in Sources */,
 				420F6CC91D69C17F009D5F57 /* AssignAppearance.swift in Sources */,
 				42108D1F1B34E9F60067FEAA /* StepperFormItem.swift in Sources */,
+				F6EF7DA51DC0B89B0040E722 /* AttributedTextViewCell.swift in Sources */,
 				428683401B346CFE0028DB2F /* FormViewController.swift in Sources */,
 				42108D1B1B34E9F60067FEAA /* OptionPickerFormItem.swift in Sources */,
 				428683431B346CFE0028DB2F /* TableViewSection.swift in Sources */,
@@ -623,6 +630,7 @@
 				42096E731B358A7E0068B084 /* ShowInfo.swift in Sources */,
 				42685D4B1D34039B008ABC3D /* PrecisionSliderFormItem.swift in Sources */,
 				4286833C1B346CFE0028DB2F /* CellHeightProvider.swift in Sources */,
+				F6EF7DA31DC0B7C00040E722 /* AttributedTextViewFormItem.swift in Sources */,
 				4286834E1B346CFE0028DB2F /* EmailSpecification.swift in Sources */,
 				42108D1D1B34E9F60067FEAA /* SliderFormItem.swift in Sources */,
 				4259A2C41C23759B00DB4CEB /* AccessoryButtonDelegate.swift in Sources */,

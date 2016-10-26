@@ -5,6 +5,7 @@ let kValueLabelColor = UIColor(red: 142/255, green: 142/255, blue: 148/255, alph
 
 public protocol FormItemVisitor {
 	func visit(object: AttributedTextFormItem)
+    func visit(object: AttributedTextViewFormItem)
 	func visit(object: ButtonFormItem)
 	func visit(object: CustomFormItem)
 	func visit(object: DatePickerFormItem)

@@ -13,6 +13,7 @@ class OptionsViewController: FormViewController {
 		builder += stopGlobalWarming
 		builder += SectionFormItem()
 		builder += randomizeButton
+        builder.alignLeft([worldPeace, stopGlobalWarming])
 	}
 
 	lazy var adoptBitcoin: OptionPickerFormItem = {

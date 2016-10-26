@@ -255,6 +255,19 @@ class PopulateTableView: FormItemVisitor {
 			SwiftyFormLog("propagate from model to cell. option: \(selected?.title)")
 			weakCell?.setSelectedOptionRowWithoutPropagation(selected)
 		}
+        
+        object.obtainTitleWidth = {
+            if let cell = weakCell {
+                return (cell.textLabel?.intrinsicContentSize.width)!
+            }
+            return 0
+        }
+        object.assignTitleWidth = { (width: CGFloat) in
+            if let cell = weakCell {
+                cell.titleWidthMode = OptionViewControllerCell.TitleWidthMode.assign(width: width)
+                cell.setNeedsUpdateConstraints()
+            }
+        }
 	}
 	
 	

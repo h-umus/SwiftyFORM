@@ -87,6 +87,14 @@ public class OptionPickerFormItem: FormItem {
 	public var valueDidChange: ValueDidChange = { (selected: OptionRowModel?) in
 		SwiftyFormLog("value did change not overridden")
 	}
+    
+    public var obtainTitleWidth: (Void) -> CGFloat = {
+        return 0
+    }
+    
+    public var assignTitleWidth: (CGFloat) -> Void = { (width: CGFloat) in
+        // do nothing
+    }
 }
 
 public class OptionRowFormItem: FormItem {

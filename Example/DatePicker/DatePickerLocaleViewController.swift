@@ -8,20 +8,23 @@ class DatePickerLocaleViewController: FormViewController {
 		let instance = DatePickerFormItem()
 		instance.title = "Time"
 		instance.datePickerMode = .time
+        instance.styleClass("dateAlign")
 		return instance
 		}()
 	
 	lazy var datePicker_date_currentLocale: DatePickerFormItem = {
 		let instance = DatePickerFormItem()
 		instance.title = "Date"
-		instance.datePickerMode = .date
+        instance.datePickerMode = .date
+        instance.styleClass("dateAlign")
 		return instance
 	}()
 
 	lazy var datePicker_dateAndTime_currentLocale: DatePickerFormItem = {
 		let instance = DatePickerFormItem()
 		instance.title = "DateAndTime"
-		instance.datePickerMode = .dateAndTime
+        instance.datePickerMode = .dateAndTime
+        instance.styleClass("dateAlign")
 		return instance
 		}()
 	
@@ -89,5 +92,6 @@ class DatePickerLocaleViewController: FormViewController {
 		builder += datePicker_time_zh_CN
 		builder += datePicker_date_zh_CN
 		builder += datePicker_dateAndTime_zh_CN
+        builder.alignLeftElementsWithClass("dateAlign")
 	}
 }

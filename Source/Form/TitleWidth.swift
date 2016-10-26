@@ -15,7 +15,9 @@ class ObtainTitleWidth: FormItemVisitor {
         width = object.obtainTitleWidth()
     }
 	func visit(object: MetaFormItem) {}
-	func visit(object: OptionPickerFormItem) {}
+    func visit(object: OptionPickerFormItem) {
+        width = object.obtainTitleWidth()
+    }
 	func visit(object: OptionRowFormItem) {}
 	func visit(object: PickerViewFormItem) {}
 	func visit(object: PrecisionSliderFormItem) {}
@@ -51,7 +53,9 @@ class AssignTitleWidth: FormItemVisitor {
         object.assignTitleWidth(width)
     }
 	func visit(object: MetaFormItem) {}
-	func visit(object: OptionPickerFormItem) {}
+    func visit(object: OptionPickerFormItem) {
+        object.assignTitleWidth(width)
+    }
 	func visit(object: OptionRowFormItem) {}
 	func visit(object: PickerViewFormItem) {}
 	func visit(object: PrecisionSliderFormItem) {}

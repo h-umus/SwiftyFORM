@@ -9,11 +9,11 @@ struct DatePickerCellConstants {
 
 public class DatePickerFormItemCellSizes {
     public let titleLabelFrame: CGRect
-    public let textFieldFrame: CGRect
+    public let dateLabelFrame: CGRect
     
-    public init(titleLabelFrame: CGRect, textFieldFrame: CGRect) {
+    public init(titleLabelFrame: CGRect, dateLabelFrame: CGRect) {
         self.titleLabelFrame = titleLabelFrame
-        self.textFieldFrame = textFieldFrame
+        self.dateLabelFrame = dateLabelFrame
     }
 }
 
@@ -129,7 +129,7 @@ public class DatePickerToggleCell: UITableViewCell, SelectRowDelegate, DontColla
     public func compute(_ cellWidth: CGFloat) -> DatePickerFormItemCellSizes {
         
         var titleLabelFrame = CGRect.zero
-        var textFieldFrame = CGRect.zero
+        var dateLabelFrame = CGRect.zero
         let veryTallCell = CGRect(x: 0, y: 0, width: cellWidth, height: CGFloat.greatestFiniteMagnitude)
         let area = veryTallCell.insetBy(dx: 16, dy: 0)
         
@@ -140,8 +140,10 @@ public class DatePickerToggleCell: UITableViewCell, SelectRowDelegate, DontColla
             
             switch titleWidthMode {
             case .auto:
+                dateLabel.textAlignment = .right
                 break
             case let .assign(width):
+                dateLabel.textAlignment = .left
                 let w = CGFloat(width)
                 if w > titleLabelWidth {
                     titleLabelWidth = w
@@ -152,17 +154,17 @@ public class DatePickerToggleCell: UITableViewCell, SelectRowDelegate, DontColla
             titleLabelFrame = slice
             (_, remainder) = remainder.divided(atDistance: 10, from: .minXEdge)
             remainder.size.width += 4
-            textFieldFrame = remainder
+            dateLabelFrame = remainder
         }
         
-        return DatePickerFormItemCellSizes(titleLabelFrame: titleLabelFrame, textFieldFrame: textFieldFrame)
+        return DatePickerFormItemCellSizes(titleLabelFrame: titleLabelFrame, dateLabelFrame: dateLabelFrame)
     }
     
     public override func layoutSubviews() {
         super.layoutSubviews()
         let sizes: DatePickerFormItemCellSizes = compute(bounds.width)
         textLabel?.frame = sizes.titleLabelFrame
-        dateLabel.frame = sizes.textFieldFrame
+        dateLabel.frame = sizes.dateLabelFrame
     }
 
 	public func updateValue() {

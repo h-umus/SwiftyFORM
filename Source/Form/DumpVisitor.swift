@@ -157,7 +157,9 @@ public class DumpVisitor: FormItemVisitor {
 		dict["styleIdentifier"] = object.styleIdentifier as AnyObject?
 		dict["styleClass"] = object.styleClass as AnyObject?
 		dict["title"] = object.title as AnyObject?
-		dict["date"] = convertOptionalDateToJSON(object.value as Date)
+        if let date = object.value as Date! {
+            dict["date"] = convertOptionalDateToJSON(date)
+        }
 		dict["datePickerMode"] = object.datePickerMode.description as AnyObject?
 		dict["locale"] = object.locale as AnyObject?
 		dict["minimumDate"] = convertOptionalDateToJSON(object.minimumDate as Date?)

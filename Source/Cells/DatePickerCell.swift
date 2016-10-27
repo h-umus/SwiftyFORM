@@ -24,7 +24,7 @@ public class DatePickerCellModel {
 	var locale: Locale? = nil // default is Locale.current, setting nil returns to default
 	var minimumDate: Date? = nil // specify min/max date range. default is nil. When min > max, the values are ignored. Ignored in countdown timer mode
 	var maximumDate: Date? = nil // default is nil
-	var date: Date = Date()
+	var date: Date?
 	var expandCollapseWhenSelectingRow = true
 	var selectionStyle = UITableViewCellSelectionStyle.default
 	
@@ -110,13 +110,15 @@ public class DatePickerToggleCell: UITableViewCell, SelectRowDelegate, DontColla
 		if model.datePickerMode == .countDownTimer {
 			return "Unsupported"
 		}
-		let date = model.date
-		//SwiftyFormLog("date: \(date)")
-		let dateFormatter = DateFormatter()
-		dateFormatter.locale = model.resolvedLocale
-		dateFormatter.dateStyle = obtainDateStyle(model.datePickerMode)
-		dateFormatter.timeStyle = obtainTimeStyle(model.datePickerMode)
-		return dateFormatter.string(from: date)
+        if let date = model.date {
+            //SwiftyFormLog("date: \(date)")
+            let dateFormatter = DateFormatter()
+            dateFormatter.locale = model.resolvedLocale
+            dateFormatter.dateStyle = obtainDateStyle(model.datePickerMode)
+            dateFormatter.timeStyle = obtainTimeStyle(model.datePickerMode)
+            return dateFormatter.string(from: date)
+        }
+        return ""
 	}
     
     public enum TitleWidthMode {
@@ -176,7 +178,7 @@ public class DatePickerToggleCell: UITableViewCell, SelectRowDelegate, DontColla
 		model.date = date
 		updateValue()
 		
-		expandedCell?.datePicker.setDate(model.date, animated: animated)
+		expandedCell?.datePicker.setDate(model.date!, animated: animated)
 	}
 	
 	public func form_cellHeight(_ indexPath: IndexPath, tableView: UITableView) -> CGFloat {
@@ -320,7 +322,9 @@ public class DatePickerExpandedCell: UITableViewCell, CellHeightProvider, WillDi
 		datePicker.minimumDate = model.minimumDate
 		datePicker.maximumDate = model.maximumDate
 		datePicker.locale = model.resolvedLocale
-		datePicker.date = model.date
+        if model.date != nil {
+            datePicker.date = model.date!
+        }
 	}
 	
 	public func valueChanged() {

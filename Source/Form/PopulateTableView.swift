@@ -250,7 +250,9 @@ class PopulateTableView: FormItemVisitor {
 		model.locale = object.locale
 		model.minimumDate = object.minimumDate
 		model.maximumDate = object.maximumDate
-		model.date = object.value
+        if let date = object.value as Date! {
+            model.date = date
+        }
 		
 		switch object.behavior {
 		case .collapsed, .expanded:

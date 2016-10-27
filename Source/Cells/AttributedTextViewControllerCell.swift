@@ -36,6 +36,7 @@ public class AttributedTextViewControllerCell: UITableViewCell, UITextViewDelega
         textView.isScrollEnabled = false
         textView.delegate = self
         
+        textView.textContainer.lineFragmentPadding = 0
         textView.textContainerInset = UIEdgeInsetsMake(5, 16, 10, 16)
         textView.isEditable = false
         

@@ -91,7 +91,7 @@ public class DatePickerFormItem: FormItem {
 	
 	public func setValue(_ date: Date?, animated: Bool) {
         if date != nil {
-            innerValue = date
+            innerValue = date!
             syncCellWithValue(date!, animated)
         }
 	}

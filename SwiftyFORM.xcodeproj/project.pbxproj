@@ -108,6 +108,8 @@
 		42FABBC41D4143650066E45A /* PrecisionSlider.swift in Sources */ = {isa = PBXBuildFile; fileRef = 42FABBC31D4143650066E45A /* PrecisionSlider.swift */; };
 		739649131D2B6B7400E12A96 /* AttributedTextCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 739649121D2B6B7400E12A96 /* AttributedTextCell.swift */; };
 		739649151D2B6CC100E12A96 /* AttributedTextFormItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 739649141D2B6CC000E12A96 /* AttributedTextFormItem.swift */; };
+		F6738A7E1DC1F39D0042CBE9 /* AttributedTextViewControllerFormItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = F6738A7D1DC1F39D0042CBE9 /* AttributedTextViewControllerFormItem.swift */; };
+		F6738A801DC1F4A60042CBE9 /* AttributedTextViewControllerCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = F6738A7F1DC1F4A60042CBE9 /* AttributedTextViewControllerCell.swift */; };
 		F6EF7DA31DC0B7C00040E722 /* AttributedTextViewFormItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = F6EF7DA21DC0B7C00040E722 /* AttributedTextViewFormItem.swift */; };
 		F6EF7DA51DC0B89B0040E722 /* AttributedTextViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = F6EF7DA41DC0B89B0040E722 /* AttributedTextViewCell.swift */; };
 		F6EF7DA71DC0F3E60040E722 /* AttributedTextViewSwitchFormItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = F6EF7DA61DC0F3E60040E722 /* AttributedTextViewSwitchFormItem.swift */; };
@@ -229,6 +231,8 @@
 		42FABBC31D4143650066E45A /* PrecisionSlider.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PrecisionSlider.swift; sourceTree = "<group>"; };
 		739649121D2B6B7400E12A96 /* AttributedTextCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AttributedTextCell.swift; sourceTree = "<group>"; };
 		739649141D2B6CC000E12A96 /* AttributedTextFormItem.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AttributedTextFormItem.swift; sourceTree = "<group>"; };
+		F6738A7D1DC1F39D0042CBE9 /* AttributedTextViewControllerFormItem.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AttributedTextViewControllerFormItem.swift; sourceTree = "<group>"; };
+		F6738A7F1DC1F4A60042CBE9 /* AttributedTextViewControllerCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AttributedTextViewControllerCell.swift; sourceTree = "<group>"; };
 		F6EF7DA21DC0B7C00040E722 /* AttributedTextViewFormItem.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AttributedTextViewFormItem.swift; sourceTree = "<group>"; };
 		F6EF7DA41DC0B89B0040E722 /* AttributedTextViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AttributedTextViewCell.swift; sourceTree = "<group>"; };
 		F6EF7DA61DC0F3E60040E722 /* AttributedTextViewSwitchFormItem.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AttributedTextViewSwitchFormItem.swift; sourceTree = "<group>"; };
@@ -278,6 +282,7 @@
 				739649141D2B6CC000E12A96 /* AttributedTextFormItem.swift */,
 				F6EF7DA21DC0B7C00040E722 /* AttributedTextViewFormItem.swift */,
 				F6EF7DA61DC0F3E60040E722 /* AttributedTextViewSwitchFormItem.swift */,
+				F6738A7D1DC1F39D0042CBE9 /* AttributedTextViewControllerFormItem.swift */,
 				42108D0A1B34E9F60067FEAA /* ButtonFormItem.swift */,
 				42D0050D1B96241100986B3B /* CustomFormItem.swift */,
 				42108D0B1B34E9F60067FEAA /* DatePickerFormItem.swift */,
@@ -338,6 +343,7 @@
 				739649121D2B6B7400E12A96 /* AttributedTextCell.swift */,
 				F6EF7DA41DC0B89B0040E722 /* AttributedTextViewCell.swift */,
 				F6EF7DA81DC0F4470040E722 /* AttributedTextViewSwitchCell.swift */,
+				F6738A7F1DC1F4A60042CBE9 /* AttributedTextViewControllerCell.swift */,
 				428683041B346CFE0028DB2F /* TextViewCell.swift */,
 				428682FA1B346CFE0028DB2F /* ButtonCell.swift */,
 				428682FB1B346CFE0028DB2F /* DatePickerCell.swift */,
@@ -577,6 +583,7 @@
 				428683381B346CFE0028DB2F /* TextViewCell.swift in Sources */,
 				4286833E1B346CFE0028DB2F /* OptionListViewController.swift in Sources */,
 				42108D191B34E9F60067FEAA /* FormItem.swift in Sources */,
+				F6738A801DC1F4A60042CBE9 /* AttributedTextViewControllerCell.swift in Sources */,
 				42D005101B96243000986B3B /* WillDisplayCellDelegate.swift in Sources */,
 				42108D211B34E9F60067FEAA /* TextFieldFormItem.swift in Sources */,
 				428683341B346CFE0028DB2F /* StaticTextCell.swift in Sources */,
@@ -586,6 +593,7 @@
 				428683321B346CFE0028DB2F /* OptionViewControllerCell.swift in Sources */,
 				428683511B346CFE0028DB2F /* RegularExpressionSpecification.swift in Sources */,
 				42108D171B34E9F60067FEAA /* ButtonFormItem.swift in Sources */,
+				F6738A7E1DC1F39D0042CBE9 /* AttributedTextViewControllerFormItem.swift in Sources */,
 				739649151D2B6CC100E12A96 /* AttributedTextFormItem.swift in Sources */,
 				4212E0131D3A3ABE002287D0 /* CellForRowDelegate.swift in Sources */,
 				428683581B346CFE0028DB2F /* UITableView+PrevNext.swift in Sources */,

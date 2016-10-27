@@ -7,10 +7,10 @@ class ObtainTitleWidth: FormItemVisitor {
 	func visit(object: TextFieldFormItem) {
 		width = object.obtainTitleWidth()
 	}
-	
 	func visit(object: AttributedTextFormItem) {}
     func visit(object: AttributedTextViewFormItem) {}
     func visit(object: AttributedTextViewSwitchFormItem) {}
+    func visit(object: AttributedTextViewControllerFormItem) {}
 	func visit(object: ButtonFormItem) {}
 	func visit(object: CustomFormItem) {}
     func visit(object: DatePickerFormItem) {
@@ -51,6 +51,7 @@ class AssignTitleWidth: FormItemVisitor {
 	func visit(object: AttributedTextFormItem) {}
     func visit(object: AttributedTextViewFormItem) {}
     func visit(object: AttributedTextViewSwitchFormItem) {}
+    func visit(object: AttributedTextViewControllerFormItem) {}
 	func visit(object: ButtonFormItem) {}
 	func visit(object: CustomFormItem) {}
     func visit(object: DatePickerFormItem) {

@@ -169,6 +169,42 @@ class PopulateTableView: FormItemVisitor {
         }
         
     }
+    
+    // MARK: AttributedTextViewControllerFormItem
+    
+    func visit(object: AttributedTextViewControllerFormItem) {
+        var model = AttributedTextViewControllerCellModel()
+        model.titleAttributedText = object.title
+        model.maximumNumberOfLines = object.maximumNumberOfLines
+        model.maximumHeigth = object.maximumHeigth
+        let willPopViewController = WillPopCustomViewController(object: object)
+        weak var weakViewController = self.model.viewController
+        
+        
+        let cell = AttributedTextViewControllerCell(model: model) { (cell: AttributedTextViewControllerCell, modelObject: AttributedTextViewControllerCellModel) in
+            SwiftyFormLog("push")
+            if let vc = weakViewController {
+                let dismissCommand = PopulateTableView.prepareDismissCommand(willPopViewController, parentViewController: vc, cell: cell)
+                if let childViewController = object.createViewController?(dismissCommand) {
+                    vc.navigationController?.pushViewController(childViewController, animated: true)
+                }
+            }
+        }
+        
+        cells.append(cell)
+        lastItemType = .item
+        
+        weak var weakCell = cell
+        object.syncCellWithValue = { (value: NSAttributedString?) in
+            SwiftyFormLog("sync value \(value)")
+            if let c = weakCell {
+                var m = AttributedTextViewControllerCellModel()
+                m.titleAttributedText = c.model.titleAttributedText
+                c.model = m
+                c.loadWithModel(m)
+            }
+        }
+    }
 	
 	// MARK: ButtonFormItem
 	
@@ -739,7 +775,7 @@ class PopulateTableView: FormItemVisitor {
 		lastItemType = .item
 	}
 	
-	class func prepareDismissCommand(_ willPopCommand: WillPopCommandProtocol, parentViewController: UIViewController, cell: ViewControllerFormItemCell) -> CommandProtocol {
+	class func prepareDismissCommand(_ willPopCommand: WillPopCommandProtocol, parentViewController: UIViewController, cell: UITableViewCell) -> CommandProtocol {
 		weak var weakViewController = parentViewController
 		let command = CommandBlock { (childViewController: UIViewController, returnObject: AnyObject?) in
 			SwiftyFormLog("pop: \(returnObject)")

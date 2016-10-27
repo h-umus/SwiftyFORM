@@ -91,12 +91,20 @@ public class DumpVisitor: FormItemVisitor {
     }
     
     public func visit(object: AttributedTextViewSwitchFormItem) {
-        dict["class"] = "AttributedTextViewFormItem" as AnyObject?
+        dict["class"] = "AttributedTextViewSwitchFormItem" as AnyObject?
         dict["elementIdentifier"] = object.elementIdentifier as AnyObject?
         dict["styleIdentifier"] = object.styleIdentifier as AnyObject?
         dict["styleClass"] = object.styleClass as AnyObject?
         dict["title"] = object.title?.string as AnyObject?
         dict["value"] = object.value as AnyObject?
+    }
+    
+    public func visit(object: AttributedTextViewControllerFormItem) {
+        dict["class"] = "AttributedTextViewControllerFormItem" as AnyObject?
+        dict["elementIdentifier"] = object.elementIdentifier as AnyObject?
+        dict["styleIdentifier"] = object.styleIdentifier as AnyObject?
+        dict["styleClass"] = object.styleClass as AnyObject?
+        dict["title"] = object.title?.string as AnyObject?
     }
     
 	public func visit(object: TextFieldFormItem) {

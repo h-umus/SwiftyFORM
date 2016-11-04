@@ -41,7 +41,7 @@ public class AttributedTextViewSwitchCell: UITableViewCell, UITextViewDelegate, 
         
         textView.textContainer.lineFragmentPadding = 0
         textView.textContainerInset = UIEdgeInsetsMake(5, 16, 10, 16)
-        textView.isEditable = false
+        textView.isUserInteractionEnabled = false
         clipsToBounds = true
         
         switchView.addTarget(self, action: #selector(SwitchCell.valueChanged), for: .valueChanged)

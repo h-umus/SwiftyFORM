@@ -24,19 +24,21 @@ public class SegmentedControlFormItem: FormItem {
 
 	@discardableResult
 	public func itemsArray(_ items: [String]) -> Self {
-		self.items = items
-		return self
-	}
-	
-	public var selectedItem: String? {
-		let index = selected
-		if index >= 0 || index < items.count {
-			return items[index]
-		}
-		return nil
-	}
+        self.items = items
+        return self
+    }
+    
+    public var selectedItem: String? {
+        if selected != nil {
+            let index = selected
+            if index! >= 0 || index! < items.count {
+                return items[index!]
+            }
+        }
+        return nil
+    }
 
-	public var selected: Int {
+	public var selected: Int? {
 		get { return value }
 		set { self.value = newValue }
 	}
@@ -53,14 +55,16 @@ public class SegmentedControlFormItem: FormItem {
 		SwiftyFormLog("sync is not overridden")
 	}
 	
-	internal var innerValue: Int = 0
-	public var value: Int {
+	internal var innerValue: Int?
+	public var value: Int? {
 		get {
 			return innerValue
 		}
 		set {
 			innerValue = newValue
-			syncCellWithValue(newValue)
+            if newValue != nil {
+                syncCellWithValue(newValue!)
+            }
 		}
 	}
 	

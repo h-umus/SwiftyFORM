@@ -7,5 +7,5 @@ Pod::Spec.new do |s|
   s.authors = { 'Simon Strandgaard' => 'simon@iroots.dk' }
   s.source = { :git => 'https://github.com/neoneye/SwiftyFORM.git', :tag => s.version }
   s.source_files = 'Source/*/*.swift'
-  s.ios.deployment_target = '9.0'
+  s.ios.deployment_target = '8.0'
 end

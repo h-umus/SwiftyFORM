@@ -34,7 +34,7 @@ public enum TableViewSectionPart {
 		case let .titleView(view):
 			return view.frame.height
 		case .titleString(_):
-			return UITableViewAutomaticDimension
+			return 38.0
 		}
 	}
 	

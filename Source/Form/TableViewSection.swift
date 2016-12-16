@@ -46,11 +46,11 @@ public class TableViewSection: NSObject, UITableViewDataSource, UITableViewDeleg
 	}
 
 	public func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
-		return header.height
+        return (header.height > 0) ? header.height : 44.0
 	}
 	
 	public func tableView(_ tableView: UITableView, heightForFooterInSection section: Int) -> CGFloat {
-		return footer.height
+        return (footer.height > 0) ? footer.height : 0.1
 	}
 	
 	public func tableView(_ tableView: UITableView, estimatedHeightForHeaderInSection section: Int) -> CGFloat {

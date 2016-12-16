@@ -8,5 +8,5 @@ Pod::Spec.new do |s|
   s.source = { :git => 'https://github.com/neoneye/SwiftyFORM.git', :tag => s.version }
   s.source_files = 'Source/*/*.swift'
   s.ios.deployment_target = '8.0'
-  s.resource_bundle = {'SwiftyFORMImages' => ['Source/**/*.{png}']}
+  s.resources = 'Source/*.xcassets'
 end

@@ -738,11 +738,12 @@ class PopulateTableView: FormItemVisitor {
 		model.title = object.title
 		model.placeholder = object.placeholder
 		weak var weakObject = object
-		model.valueDidChange = { (value: String) in
-			SwiftyFormLog("value \(value)")
-			weakObject?.innerValue = value
-			return
-		}
+        model.valueDidChange = { (value: String) in
+            SwiftyFormLog("value \(value)")
+            weakObject?.innerValue = value
+            weakObject?.textViewDidChange(value)
+            return
+        }
 		let cell = TextViewCell(model: model)
 		cell.setValueWithoutSync(object.value)
 		cells.append(cell)

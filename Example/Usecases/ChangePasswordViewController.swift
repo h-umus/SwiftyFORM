@@ -27,6 +27,9 @@ class ChangePasswordViewController: FormViewController {
 		instance.validate(CharacterSetSpecification.decimalDigitCharacterSet(), message: "Must be digits")
 		instance.submitValidate(CountSpecification.min(4), message: "Length must be minimum 4 digits")
 		instance.validate(CountSpecification.max(6), message: "Length must be maximum 6 digits")
+        instance.textDidChangeBlock = { text in
+            NSLog("txt: %@", text);
+        }
 		return instance
 		}()
 	

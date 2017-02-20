@@ -36,6 +36,16 @@ public class TextViewFormItem: FormItem {
 			self.assignValueAndSync(newValue)
 		}
 	}
+    
+    public typealias TextViewDidChangeBlock = (_ value: String) -> Void
+    public var textViewDidChangeBlock: TextViewDidChangeBlock = { (value: String) in
+        SwiftyFormLog("not overridden")
+    }
+    
+    public func textViewDidChange(_ value: String) {
+        innerValue = value
+        textViewDidChangeBlock(value)
+    }
 	
 	func assignValueAndSync(_ value: String) {
 		innerValue = value

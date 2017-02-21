@@ -30,6 +30,13 @@ open class FormViewController: UIViewController {
 		
 		//debugPrint(dataSource!)
 	}
+    
+    open func reloadItems() {
+        dataSource = formBuilder.result(self)
+        tableView.dataSource = dataSource
+        tableView.delegate = dataSource
+        tableView.reloadData()
+    }
 
 	open func populate(_ builder: FormBuilder) {
 		SwiftyFormLog("subclass must implement populate()")

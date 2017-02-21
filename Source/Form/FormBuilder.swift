@@ -37,6 +37,14 @@ public class FormBuilder: NSObject {
 		innerItems.append(item)
 		return item
 	}
+    
+    public func append(_ item: FormItem, index: Int) {
+        innerItems.insert(item, at: index)
+    }
+    
+    public func removeItem(index: Int) {
+        innerItems.remove(at: index)
+    }
 	
 	public func appendMulti(_ items: [FormItem]) {
 		innerItems += items

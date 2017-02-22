@@ -118,6 +118,14 @@ public class TextViewCell: UITableViewCell, UITextViewDelegate, CellHeightProvid
 		updateToolbarButtons()
 	}
 
+    public func textView(_ textView: UITextView, shouldChangeTextIn range: NSRange, replacementText text: String) -> Bool {
+        if (text == "\n") {
+            textView.resignFirstResponder()
+            return false
+        }
+        return true
+    }
+    
 	public func textViewDidChange(_ textView: UITextView) {
 		updateValue()
 		model.valueDidChange(textView.text)

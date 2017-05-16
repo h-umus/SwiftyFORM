@@ -24,6 +24,7 @@ class OptionsViewController: FormViewController {
 		instance.valueDidChange = { (selected: OptionRowModel?) in
 			print("adopt bitcoin: \(selected)")
 		}
+        instance.required("mandatory")
 		return instance
 		}()
 	

@@ -37,7 +37,46 @@ public class OptionPickerFormItem: FormItem {
 	}
 	
 	public var options = [OptionRowModel]()
-
+    
+    
+    public let validatorBuilder = ValidatorBuilder()
+    
+    @discardableResult
+    public func validate(_ specification: Specification, message: String) -> Self {
+        validatorBuilder.hardValidate(specification, message: message)
+        return self
+    }
+    
+    @discardableResult
+    public func softValidate(_ specification: Specification, message: String) -> Self {
+        validatorBuilder.softValidate(specification, message: message)
+        return self
+    }
+    
+    @discardableResult
+    public func submitValidate(_ specification: Specification, message: String) -> Self {
+        validatorBuilder.submitValidate(specification, message: message)
+        return self
+    }
+    
+    @discardableResult
+    public func required(_ message: String) -> Self {
+        submitValidate(CountSpecification.min(1), message: message)
+        return self
+    }
+    
+    public func submitValidateValueText() -> ValidateResult {
+        return validatorBuilder.build().submitValidate(self.selected)
+    }
+    
+    public func submitValidateText(_ text: String) -> ValidateResult {
+        return validatorBuilder.build().validate(text, checkHardRule: true, checkSoftRule: true, checkSubmitRule: true)
+    }
+    
+    public func validateText(_ text: String, checkHardRule: Bool, checkSoftRule: Bool, checkSubmitRule: Bool) -> ValidateResult {
+        return validatorBuilder.build().validate(text, checkHardRule: checkHardRule, checkSoftRule: checkSoftRule, checkSubmitRule: checkSubmitRule)
+    }
+    
 	@discardableResult
 	public func append(_ name: String, identifier: String? = nil) -> Self {
 		options.append(OptionRowModel(name, identifier ?? name))

@@ -4,10 +4,14 @@ import UIKit
 public class OptionViewControllerCellSizes {
     public let titleLabelFrame: CGRect
     public let valueLabelFrame: CGRect
+    public let errorLabelFrame: CGRect
+    public let cellHeight: CGFloat
     
-    public init(titleLabelFrame: CGRect, valueLabelFrame: CGRect) {
+    public init(titleLabelFrame: CGRect, valueLabelFrame: CGRect, errorLabelFrame:CGRect, cellHeight: CGFloat) {
         self.titleLabelFrame = titleLabelFrame
         self.valueLabelFrame = valueLabelFrame
+        self.errorLabelFrame = errorLabelFrame
+        self.cellHeight = cellHeight
     }
 }
 
@@ -24,6 +28,7 @@ public struct OptionViewControllerCellModel {
 
 public class OptionViewControllerCell: UITableViewCell, SelectRowDelegate {
     public let valueLabel = UILabel()
+    public let errorLabel = UILabel()
 	fileprivate let model: OptionViewControllerCellModel
 	fileprivate var selectedOptionRow: OptionRowModel? = nil
 	fileprivate weak var parentViewController: UIViewController?
@@ -37,6 +42,13 @@ public class OptionViewControllerCell: UITableViewCell, SelectRowDelegate {
 		textLabel?.text = model.title
         valueLabel.textColor = kValueLabelColor
         contentView.addSubview(valueLabel)
+        
+        errorLabel.font = UIFont.preferredFont(forTextStyle: UIFontTextStyle.caption2)
+        errorLabel.textColor = UIColor.red
+        errorLabel.numberOfLines = 0
+        contentView.addSubview(errorLabel)
+        updateErrorLabel((model.optionField?.liveValidateValueText())!)
+        
 		updateValue()
 	}
 	
@@ -63,6 +75,8 @@ public class OptionViewControllerCell: UITableViewCell, SelectRowDelegate {
         
         var titleLabelFrame = CGRect.zero
         var valueLabelFrame = CGRect.zero
+        var errorLabelFrame = CGRect.zero
+        var cellHeight: CGFloat = 0
         let veryTallCell = CGRect(x: 0, y: 0, width: cellWidth, height: CGFloat.greatestFiniteMagnitude)
         let area = veryTallCell.insetBy(dx: 16, dy: 0)
         
@@ -90,8 +104,16 @@ public class OptionViewControllerCell: UITableViewCell, SelectRowDelegate {
             remainder.size.width += 4
             valueLabelFrame = remainder
         }
+        let size = errorLabel.sizeThatFits(area.size)
+        if size.height > 0.1 {
+            var r = topRect
+            r.origin.y = topRect.maxY - 6
+            let (slice, _) = r.divided(atDistance: size.height, from: .minYEdge)
+            errorLabelFrame = slice
+            cellHeight = ceil(errorLabelFrame.maxY + 10)
+        }
         
-        return OptionViewControllerCellSizes(titleLabelFrame: titleLabelFrame, valueLabelFrame: valueLabelFrame)
+        return OptionViewControllerCellSizes(titleLabelFrame: titleLabelFrame, valueLabelFrame: valueLabelFrame, errorLabelFrame: errorLabelFrame, cellHeight: cellHeight)
     }
     
     public override func layoutSubviews() {
@@ -99,13 +121,135 @@ public class OptionViewControllerCell: UITableViewCell, SelectRowDelegate {
         let sizes: OptionViewControllerCellSizes = compute(bounds.width)
         textLabel?.frame = sizes.titleLabelFrame
         valueLabel.frame = sizes.valueLabelFrame
+        errorLabel.frame = sizes.errorLabelFrame
     }
 	
 	fileprivate func updateValue() {
 		let s = humanReadableValue()
 		SwiftyFormLog("update value \(s)")
 		valueLabel.text = s
+        _ = validateAndUpdateErrorIfNeeded(selectedOptionRow?.identifier ?? "", shouldInstallTimer: true, checkSubmitRule: false)
 	}
+    
+    public func updateErrorLabel(_ result: ValidateResult) {
+        switch result {
+        case .valid:
+            errorLabel.text = nil
+        case .hardInvalid(let message):
+            errorLabel.text = message
+        case .softInvalid(let message):
+            errorLabel.text = message
+        }
+    }
+    
+    public var lastResult: ValidateResult?
+    
+    public var hideErrorMessageAfterFewSecondsTimer: Timer?
+    public func invalidateTimer() {
+        if let timer = hideErrorMessageAfterFewSecondsTimer {
+            timer.invalidate()
+            hideErrorMessageAfterFewSecondsTimer = nil
+        }
+    }
+    
+    public func installTimer() {
+        invalidateTimer()
+        let timer = Timer.scheduledTimer(timeInterval: 2, target: self, selector: #selector(TextFieldFormItemCell.timerUpdate), userInfo: nil, repeats: false)
+        hideErrorMessageAfterFewSecondsTimer = timer
+    }
+    
+    // Returns true  when valid
+    // Returns false when invalid
+    public func validateAndUpdateErrorIfNeeded(_ text: String, shouldInstallTimer: Bool, checkSubmitRule: Bool) -> Bool {
+        
+        let tableView: UITableView? = form_tableView()
+        
+        let result: ValidateResult = model.optionField!.validateText(text, checkHardRule: true, checkSoftRule: true, checkSubmitRule: checkSubmitRule)
+        if let lastResult = lastResult {
+            if lastResult == result {
+                switch result {
+                case .valid:
+                    //SwiftyFormLog("same valid")
+                    return true
+                case .hardInvalid:
+                    //SwiftyFormLog("same hard invalid")
+                    invalidateTimer()
+                    if shouldInstallTimer {
+                        installTimer()
+                    }
+                    return false
+                case .softInvalid:
+                    //SwiftyFormLog("same soft invalid")
+                    invalidateTimer()
+                    if shouldInstallTimer {
+                        installTimer()
+                    }
+                    return true
+                }
+            }
+        }
+        lastResult = result
+        
+        switch result {
+        case .valid:
+            //SwiftyFormLog("different valid")
+            if let tv = tableView {
+                tv.beginUpdates()
+                errorLabel.text = nil
+                setNeedsLayout()
+                tv.endUpdates()
+                
+                invalidateTimer()
+            }
+            return true
+        case let .hardInvalid(message):
+            //SwiftyFormLog("different hard invalid")
+            if let tv = tableView {
+                tv.beginUpdates()
+                errorLabel.text = message
+                setNeedsLayout()
+                tv.endUpdates()
+                
+                invalidateTimer()
+                if shouldInstallTimer {
+                    installTimer()
+                }
+            }
+            return false
+        case let .softInvalid(message):
+            //SwiftyFormLog("different soft invalid")
+            if let tv = tableView {
+                tv.beginUpdates()
+                errorLabel.text = message
+                setNeedsLayout()
+                tv.endUpdates()
+                
+                invalidateTimer()
+                if shouldInstallTimer {
+                    installTimer()
+                }
+            }
+            return true
+        }
+    }
+    
+    public func timerUpdate() {
+        invalidateTimer()
+        let s = selectedOptionRow?.identifier ?? ""
+        _ = validateAndUpdateErrorIfNeeded(s, shouldInstallTimer: false, checkSubmitRule: false)
+    }
+    
+    public func reloadPersistentValidationState() {
+        invalidateTimer()
+        let s = selectedOptionRow?.identifier ?? ""
+        _ = validateAndUpdateErrorIfNeeded(s, shouldInstallTimer: false, checkSubmitRule: true)
+    }
+    
+    public func form_cellHeight(indexPath: IndexPath, tableView: UITableView) -> CGFloat {
+        let sizes: OptionViewControllerCellSizes = compute(bounds.width)
+        let value = sizes.cellHeight
+        return value
+    }
 	
 	public func setSelectedOptionRowWithoutPropagation(_ option: OptionRowModel?) {
 		SwiftyFormLog("set selected option: \(option?.title) \(option?.identifier)")

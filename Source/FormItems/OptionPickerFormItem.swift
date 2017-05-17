@@ -38,6 +38,7 @@ public class OptionPickerFormItem: FormItem {
 	
 	public var options = [OptionRowModel]()
     
+    public var reloadPersistentValidationState: (Void) -> Void = {}
     
     public let validatorBuilder = ValidatorBuilder()
     
@@ -65,8 +66,16 @@ public class OptionPickerFormItem: FormItem {
         return self
     }
     
+    public func liveValidateValueText() -> ValidateResult {
+        return  validatorBuilder.build().liveValidate(self.selected?.identifier)
+    }
+    
+    public func liveValidateText(_ text: String) -> ValidateResult {
+        return validatorBuilder.build().validate(text, checkHardRule: true, checkSoftRule: true, checkSubmitRule: false)
+    }
+    
     public func submitValidateValueText() -> ValidateResult {
-        return validatorBuilder.build().submitValidate(self.selected)
+        return validatorBuilder.build().submitValidate(self.selected?.identifier)
     }
     
     public func submitValidateText(_ text: String) -> ValidateResult {

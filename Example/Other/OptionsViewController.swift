@@ -3,7 +3,16 @@ import UIKit
 import SwiftyFORM
 
 class OptionsViewController: FormViewController {
-	override func populate(_ builder: FormBuilder) {
+    
+    override func viewDidLoad() {
+        super.viewDidLoad()
+        self.navigationItem.rightBarButtonItem = UIBarButtonItem(title: "save",
+                                                                style: .plain,
+                                                                target: self,
+                                                                action: #selector(OptionsViewController.save))
+    }
+    
+    override func populate(_ builder: FormBuilder) {
 		builder.navigationTitle = "Options"
 		builder.toolbarMode = .none
 		builder += SectionHeaderTitleFormItem().title("Options")
@@ -19,8 +28,8 @@ class OptionsViewController: FormViewController {
 	lazy var adoptBitcoin: OptionPickerFormItem = {
 		let instance = OptionPickerFormItem()
 		instance.title("Adopt Bitcoin?").placeholder("required")
+        instance.elementIdentifier = "bitcoin option picker"
 		instance.append("Strongly disagree").append("Disagree").append("Neutral").append("Agree").append("Strongly agree")
-		instance.selectOptionWithTitle("Neutral")
 		instance.valueDidChange = { (selected: OptionRowModel?) in
 			print("adopt bitcoin: \(selected)")
 		}
@@ -28,14 +37,14 @@ class OptionsViewController: FormViewController {
 		return instance
 		}()
 	
-	lazy var exploreSpace: OptionPickerFormItem = {
-		let instance = OptionPickerFormItem()
+	lazy var exploreSpace: TextFieldFormItem = {
+		let instance = TextFieldFormItem()
 		instance.title("Explore Space?").placeholder("required")
-		instance.append("Strongly disagree").append("Disagree").append("Neutral").append("Agree").append("Strongly agree")
-		instance.selectOptionWithTitle("Neutral")
-		instance.valueDidChange = { (selected: OptionRowModel?) in
-			print("explore space: \(selected)")
-		}
+        instance.elementIdentifier = "Explore Space text item"
+        instance.textDidChangeBlock = { [weak self] text in
+
+        }
+        instance.required("mandatory")
 		return instance
 		}()
 	
@@ -88,8 +97,20 @@ class OptionsViewController: FormViewController {
 	
 	func randomize() {
 		assignRandomOption(adoptBitcoin)
-		assignRandomOption(exploreSpace)
 		assignRandomOption(worldPeace)
 		assignRandomOption(stopGlobalWarming)
 	}
+    
+    func save(sender: UIBarButtonItem) {
+        formBuilder.validateAndUpdateUI()
+        let result = formBuilder.validate()
+        
+        switch result {
+        case .valid:
+            break
+        case let .invalid(item, message):
+            let title = item.elementIdentifier
+            form_simpleAlert(title!, message)
+        }
+    }
 }

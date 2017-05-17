@@ -26,7 +26,7 @@ public struct OptionViewControllerCellModel {
 	}
 }
 
-public class OptionViewControllerCell: UITableViewCell, SelectRowDelegate {
+public class OptionViewControllerCell: UITableViewCell, SelectRowDelegate, CellHeightProvider {
     public let valueLabel = UILabel()
     public let errorLabel = UILabel()
 	fileprivate let model: OptionViewControllerCellModel
@@ -103,6 +103,7 @@ public class OptionViewControllerCell: UITableViewCell, SelectRowDelegate {
             (_, remainder) = remainder.divided(atDistance: 10, from: .minXEdge)
             remainder.size.width += 4
             valueLabelFrame = remainder
+            cellHeight = ceil(valueLabelFrame.height)
         }
         let size = errorLabel.sizeThatFits(area.size)
         if size.height > 0.1 {

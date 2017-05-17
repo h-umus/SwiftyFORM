@@ -351,6 +351,11 @@ class PopulateTableView: FormItemVisitor {
 			weakCell?.setSelectedOptionRowWithoutPropagation(selected)
 		}
         
+        object.reloadPersistentValidationState = {
+            weakCell?.reloadPersistentValidationState()
+            return
+        }
+        
         object.obtainTitleWidth = {
             if let cell = weakCell {
                 return (cell.textLabel?.intrinsicContentSize.width)!

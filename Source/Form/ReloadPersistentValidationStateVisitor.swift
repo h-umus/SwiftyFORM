@@ -22,7 +22,9 @@ class ReloadPersistentValidationStateVisitor: FormItemVisitor {
 	func visit(object: CustomFormItem) {}
 	func visit(object: DatePickerFormItem) {}
 	func visit(object: MetaFormItem) {}
-	func visit(object: OptionPickerFormItem) {}
+	func visit(object: OptionPickerFormItem) {
+        object.reloadPersistentValidationState()
+    }
 	func visit(object: OptionRowFormItem) {}
 	func visit(object: PickerViewFormItem) {}
 	func visit(object: PrecisionSliderFormItem) {}

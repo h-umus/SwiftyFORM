@@ -89,7 +89,8 @@ public class TextFieldFormItemCell: UITableViewCell, UITextFieldDelegate, CellHe
 		contentView.addSubview(errorLabel)
 
 		titleLabel.text = model.title
-		textField.placeholder = model.placeholder
+        textField.attributedPlaceholder = NSAttributedString(string: model.placeholder,
+                                                             attributes: [NSForegroundColorAttributeName: kValueLabelColor])
 		textField.autocapitalizationType = model.autocapitalizationType
 		textField.autocorrectionType = model.autocorrectionType
 		textField.keyboardType = model.keyboardType

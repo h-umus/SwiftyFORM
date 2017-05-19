@@ -22,7 +22,7 @@ public struct OptionViewControllerCellModel {
 	var selectedOptionRow: OptionRowModel? = nil
 
 	var valueDidChange: (OptionRowModel?) -> Void = { (value: OptionRowModel?) in
-		SwiftyFormLog("value \(value)")
+		SwiftyFormLog("value \(String(describing: value))")
 	}
 }
 
@@ -71,7 +71,8 @@ public class OptionViewControllerCell: UITableViewCell, SelectRowDelegate, CellH
     
     public var titleWidthMode: TitleWidthMode = .auto
     
-    public func compute(_ cellWidth: CGFloat) -> OptionViewControllerCellSizes {
+    public func compute() -> OptionViewControllerCellSizes {
+        let cellWidth: CGFloat = bounds.width
         
         var titleLabelFrame = CGRect.zero
         var valueLabelFrame = CGRect.zero
@@ -119,7 +120,7 @@ public class OptionViewControllerCell: UITableViewCell, SelectRowDelegate, CellH
     
     public override func layoutSubviews() {
         super.layoutSubviews()
-        let sizes: OptionViewControllerCellSizes = compute(bounds.width)
+        let sizes: OptionViewControllerCellSizes = compute()
         textLabel?.frame = sizes.titleLabelFrame
         valueLabel.frame = sizes.valueLabelFrame
         errorLabel.frame = sizes.errorLabelFrame
@@ -127,7 +128,7 @@ public class OptionViewControllerCell: UITableViewCell, SelectRowDelegate, CellH
 	
 	fileprivate func updateValue() {
 		let s = humanReadableValue()
-		SwiftyFormLog("update value \(s)")
+		SwiftyFormLog("update value \(String(describing: s))")
 		valueLabel.text = s
         _ = validateAndUpdateErrorIfNeeded(selectedOptionRow?.identifier ?? "", shouldInstallTimer: true, checkSubmitRule: false)
 	}
@@ -247,13 +248,13 @@ public class OptionViewControllerCell: UITableViewCell, SelectRowDelegate, CellH
     }
     
     public func form_cellHeight(indexPath: IndexPath, tableView: UITableView) -> CGFloat {
-        let sizes: OptionViewControllerCellSizes = compute(bounds.width)
+        let sizes: OptionViewControllerCellSizes = compute()
         let value = sizes.cellHeight
         return value
     }
 	
 	public func setSelectedOptionRowWithoutPropagation(_ option: OptionRowModel?) {
-		SwiftyFormLog("set selected option: \(option?.title) \(option?.identifier)")
+		SwiftyFormLog("set selected option: \(String(describing: option?.title)) \(String(describing: option?.identifier))")
 		
 		selectedOptionRow = option
 		updateValue()

@@ -24,7 +24,8 @@ public class DatePickerCellModel {
 	var locale: Locale? = nil // default is Locale.current, setting nil returns to default
 	var minimumDate: Date? = nil // specify min/max date range. default is nil. When min > max, the values are ignored. Ignored in countdown timer mode
 	var maximumDate: Date? = nil // default is nil
-	var date: Date?
+	var minuteInterval: Int = 1
+	var date: Date = Date()
 	var expandCollapseWhenSelectingRow = true
 	var selectionStyle = UITableViewCellSelectionStyle.default
 	
@@ -106,20 +107,19 @@ public class DatePickerToggleCell: UITableViewCell, SelectRowDelegate, DontColla
 		}
 	}
 	
-	public var humanReadableValue: String {
-		if model.datePickerMode == .countDownTimer {
-			return "Unsupported"
-		}
-        if let date = model.date {
-            //SwiftyFormLog("date: \(date)")
-            let dateFormatter = DateFormatter()
-            dateFormatter.locale = model.resolvedLocale
-            dateFormatter.dateStyle = obtainDateStyle(model.datePickerMode)
-            dateFormatter.timeStyle = obtainTimeStyle(model.datePickerMode)
-            return dateFormatter.string(from: date)
+    public var humanReadableValue: String {
+        if model.datePickerMode == .countDownTimer {
+            return "Unsupported"
         }
-        return ""
-	}
+        
+        //SwiftyFormLog("date: \(date)")
+        let dateFormatter = DateFormatter()
+        dateFormatter.locale = model.resolvedLocale
+        dateFormatter.dateStyle = obtainDateStyle(model.datePickerMode)
+        dateFormatter.timeStyle = obtainTimeStyle(model.datePickerMode)
+        return dateFormatter.string(from: model.date)
+        
+    }
     
     public enum TitleWidthMode {
         case auto
@@ -128,8 +128,9 @@ public class DatePickerToggleCell: UITableViewCell, SelectRowDelegate, DontColla
     
     public var titleWidthMode: TitleWidthMode = .auto
     
-    public func compute(_ cellWidth: CGFloat) -> DatePickerFormItemCellSizes {
-        
+    public func compute() -> DatePickerFormItemCellSizes {
+        let cellWidth: CGFloat = bounds.width
+
         var titleLabelFrame = CGRect.zero
         var valueLabelFrame = CGRect.zero
         let veryTallCell = CGRect(x: 0, y: 0, width: cellWidth, height: CGFloat.greatestFiniteMagnitude)
@@ -164,7 +165,7 @@ public class DatePickerToggleCell: UITableViewCell, SelectRowDelegate, DontColla
     
     public override func layoutSubviews() {
         super.layoutSubviews()
-        let sizes: DatePickerFormItemCellSizes = compute(bounds.width)
+        let sizes: DatePickerFormItemCellSizes = compute()
         textLabel?.frame = sizes.titleLabelFrame
         valueLabel.frame = sizes.valueLabelFrame
     }
@@ -178,7 +179,7 @@ public class DatePickerToggleCell: UITableViewCell, SelectRowDelegate, DontColla
 		model.date = date
 		updateValue()
 		
-		expandedCell?.datePicker.setDate(model.date!, animated: animated)
+		expandedCell?.datePicker.setDate(model.date, animated: animated)
 	}
 	
 	public func form_cellHeight(_ indexPath: IndexPath, tableView: UITableView) -> CGFloat {
@@ -321,10 +322,9 @@ public class DatePickerExpandedCell: UITableViewCell, CellHeightProvider, WillDi
 		datePicker.datePickerMode = model.datePickerMode
 		datePicker.minimumDate = model.minimumDate
 		datePicker.maximumDate = model.maximumDate
+		datePicker.minuteInterval = model.minuteInterval
 		datePicker.locale = model.resolvedLocale
-        if model.date != nil {
-            datePicker.date = model.date!
-        }
+        datePicker.date = model.date
 	}
 	
 	public func valueChanged() {

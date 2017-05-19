@@ -128,8 +128,9 @@ public class DatePickerToggleCell: UITableViewCell, SelectRowDelegate, DontColla
     
     public var titleWidthMode: TitleWidthMode = .auto
     
-    public func compute(_ cellWidth: CGFloat) -> DatePickerFormItemCellSizes {
-        
+    public func compute() -> DatePickerFormItemCellSizes {
+        let cellWidth: CGFloat = bounds.width
+
         var titleLabelFrame = CGRect.zero
         var valueLabelFrame = CGRect.zero
         let veryTallCell = CGRect(x: 0, y: 0, width: cellWidth, height: CGFloat.greatestFiniteMagnitude)
@@ -164,7 +165,7 @@ public class DatePickerToggleCell: UITableViewCell, SelectRowDelegate, DontColla
     
     public override func layoutSubviews() {
         super.layoutSubviews()
-        let sizes: DatePickerFormItemCellSizes = compute(bounds.width)
+        let sizes: DatePickerFormItemCellSizes = compute()
         textLabel?.frame = sizes.titleLabelFrame
         valueLabel.frame = sizes.valueLabelFrame
     }

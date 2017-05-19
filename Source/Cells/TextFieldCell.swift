@@ -180,10 +180,11 @@ public class TextFieldFormItemCell: UITableViewCell {
 		var cellHeight: CGFloat = 0
 		let veryTallCell = CGRect(x: 0, y: 0, width: cellWidth, height: CGFloat.greatestFiniteMagnitude)
 
-		var layoutMargins = self.layoutMargins
-		layoutMargins.top = 0
-		layoutMargins.bottom = 0
-		let area = UIEdgeInsetsInsetRect(veryTallCell, layoutMargins)
+        let area = veryTallCell.insetBy(dx: 16, dy: 0)
+//		var layoutMargins = self.layoutMargins
+//		layoutMargins.top = 0
+//		layoutMargins.bottom = 0
+//		let area = UIEdgeInsetsInsetRect(veryTallCell, layoutMargins)
 		
 		let (topRect, _) = area.divided(atDistance: 44, from: .minYEdge)
 		do {

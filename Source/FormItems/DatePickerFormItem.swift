@@ -79,8 +79,8 @@ public class DatePickerFormItem: FormItem {
 		SwiftyFormLog("sync is not overridden: \(date)")
 	}
 	
-    internal var innerValue : Date?
-	public var value: Date? {
+    internal var innerValue = Date()
+	public var value: Date {
 		get {
 			return self.innerValue
 		}
@@ -89,17 +89,16 @@ public class DatePickerFormItem: FormItem {
 		}
 	}
 	
-	public func setValue(_ date: Date?, animated: Bool) {
-        if date != nil {
-            innerValue = date!
-            syncCellWithValue(date!, animated)
-        }
+	public func setValue(_ date: Date, animated: Bool) {
+        innerValue = date
+        syncCellWithValue(date, animated)
 	}
 	
 	public var datePickerMode: DatePickerFormItemMode = .dateAndTime
 	public var locale: Locale? // default is Locale.current, setting nil returns to default
 	public var minimumDate: Date? // specify min/max date range. default is nil. When min > max, the values are ignored. Ignored in countdown timer mode
 	public var maximumDate: Date? // default is nil
+	public var minuteInterval: Int = 1
 	
 	
 	public typealias ValueDidChangeBlock = (_ value: Date) -> Void

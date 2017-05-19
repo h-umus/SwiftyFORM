@@ -1,7 +1,7 @@
 // MIT license. Copyright (c) 2016 SwiftyFORM. All rights reserved.
 import UIKit
 
-public class TableViewSectionArray: NSObject, UITableViewDataSource, UITableViewDelegate {
+public class TableViewSectionArray: NSObject {
 	public let sections: [TableViewSection]
 	
 	public init(sections: [TableViewSection]) {
@@ -21,12 +21,12 @@ public class TableViewSectionArray: NSObject, UITableViewDataSource, UITableView
 	}
 	
 	func findVisibleItem(indexPath: IndexPath) -> TableViewCellArrayItem? {
-		if indexPath.section < 0 { return nil }
-		if indexPath.row < 0 { return nil }
-		if indexPath.section >= sections.count { return nil }
+		guard indexPath.section >= 0 else { return nil }
+		guard indexPath.row >= 0 else { return nil }
+		guard indexPath.section < sections.count else { return nil }
 		let section = sections[indexPath.section]
 		let items = section.cells.visibleItems
-		if indexPath.row >= items.count { return nil }
+		guard indexPath.row < items.count else { return nil }
 		return items[indexPath.row]
 	}
 	
@@ -47,67 +47,120 @@ public class TableViewSectionArray: NSObject, UITableViewDataSource, UITableView
 		}
 	}
 	
+	var numberOfVisibleItems: Int {
+		var count = 0
+		for section in sections {
+			count += section.cells.visibleItems.count
+		}
+		return count
+	}
 
-	// MARK: UITableViewDataSource, UITableViewDelegate
-	
+	public override var debugDescription: String {
+		var result = [String]()
+		result.append("============ number of sections: \(sections.count)")
+		for (sectionIndex, section) in sections.enumerated() {
+			result.append("  --- section: \(sectionIndex), number of cells: \(section.cells.visibleItems.count)")
+			for (rowIndex, item) in section.cells.visibleItems.enumerated() {
+				let cellType = type(of: item.cell)
+				let s = "    \(sectionIndex).\(rowIndex) \(cellType)"
+				result.append(s)
+			}
+		}
+		result.append("============")
+		return result.joined(separator: "\n")
+	}
+
+	func trace(_ items: Any?..., function: String = #function) {
+		//print("\(function) - \(items)")
+	}
+}
+
+extension TableViewSectionArray: UITableViewDataSource {
 	public func numberOfSections(in tableView: UITableView) -> Int {
-		return sections.count
+		let returnValue = sections.count
+		trace(returnValue)
+		return returnValue
 	}
 	
 	public func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-		return sections[section].tableView(tableView, numberOfRowsInSection: section)
+		let returnValue = sections[section].tableView(tableView, numberOfRowsInSection: section)
+		trace(section, returnValue)
+		return returnValue
 	}
 	
 	public func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-		return sections[indexPath.section].tableView(tableView, cellForRowAt: indexPath)
+		let returnValue = sections[indexPath.section].tableView(tableView, cellForRowAt: indexPath)
+		trace(indexPath, returnValue)
+		return returnValue
 	}
-	
-	public func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-		sections[indexPath.section].tableView(tableView, didSelectRowAt: indexPath)
-	}
-	
+
 	public func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
-		return sections[section].tableView(tableView, titleForHeaderInSection: section)
+		let returnValue = sections[section].tableView(tableView, titleForHeaderInSection: section)
+		trace(section, returnValue)
+		return returnValue
 	}
 	
 	public func tableView(_ tableView: UITableView, titleForFooterInSection section: Int) -> String? {
-		return sections[section].tableView(tableView, titleForFooterInSection: section)
+		let returnValue = sections[section].tableView(tableView, titleForFooterInSection: section)
+		trace(section, returnValue)
+		return returnValue
+	}
+}
+
+extension TableViewSectionArray: UITableViewDelegate {
+	public func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+		sections[indexPath.section].tableView(tableView, didSelectRowAt: indexPath)
+		trace(indexPath)
 	}
 	
 	public func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
-		return sections[section].tableView(tableView, viewForHeaderInSection: section)
+		let returnValue = sections[section].tableView(tableView, viewForHeaderInSection: section)
+		trace(section, returnValue)
+		return returnValue
 	}
 	
 	public func tableView(_ tableView: UITableView, viewForFooterInSection section: Int) -> UIView? {
-		return sections[section].tableView(tableView, viewForFooterInSection: section)
+		let returnValue = sections[section].tableView(tableView, viewForFooterInSection: section)
+		trace(section, returnValue)
+		return returnValue
 	}
 	
 	public func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
-		return sections[section].tableView(tableView, heightForHeaderInSection: section)
+		let returnValue = sections[section].tableView(tableView, heightForHeaderInSection: section)
+		trace(section, returnValue)
+		return returnValue
 	}
 	
 	public func tableView(_ tableView: UITableView, estimatedHeightForHeaderInSection section: Int) -> CGFloat {
-		return sections[section].tableView(tableView, estimatedHeightForHeaderInSection: section)
+		let returnValue = sections[section].tableView(tableView, estimatedHeightForHeaderInSection: section)
+		trace(section, returnValue)
+		return returnValue
 	}
 	
 	public func tableView(_ tableView: UITableView, heightForFooterInSection section: Int) -> CGFloat {
-		return sections[section].tableView(tableView, heightForFooterInSection: section)
+		let returnValue = sections[section].tableView(tableView, heightForFooterInSection: section)
+		trace(section, returnValue)
+		return returnValue
 	}
 	
 	public func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
-		return sections[indexPath.section].tableView(tableView, heightForRowAt: indexPath)
+		let returnValue = sections[indexPath.section].tableView(tableView, heightForRowAt: indexPath)
+		trace(indexPath, returnValue)
+		return returnValue
 	}
 	
 	public func tableView(_ tableView: UITableView, willDisplay cell: UITableViewCell, forRowAt indexPath: IndexPath) {
 		sections[indexPath.section].tableView(tableView, willDisplay: cell, forRowAt: indexPath)
+		trace(indexPath)
 	}
 	
 	public func tableView(_ tableView: UITableView, accessoryButtonTappedForRowWith indexPath: IndexPath) {
 		sections[indexPath.section].tableView(tableView, accessoryButtonTappedForRowWith: indexPath)
+		trace(indexPath)
 	}
-	
-	// MARK: UIScrollViewDelegate
-	
+}
+
+extension TableViewSectionArray: UIScrollViewDelegate {
 	/// hide keyboard when the user starts scrolling
 	public func scrollViewWillBeginDragging(_ scrollView: UIScrollView) {
 		guard let responder = scrollView.form_firstResponder() else {
@@ -130,23 +183,5 @@ public class TableViewSectionArray: NSObject, UITableViewDataSource, UITableView
 	public func scrollViewShouldScrollToTop(_ scrollView: UIScrollView) -> Bool {
 		scrollView.form_firstResponder()?.resignFirstResponder()
 		return true
-	}
-	
-	
-	// MARK: CustomDebugStringConvertible
-	
-	public override var debugDescription: String {
-		var result = [String]()
-		result.append("============ number of sections: \(sections.count)")
-		for (sectionIndex, section) in sections.enumerated() {
-			result.append("  --- section: \(sectionIndex), number of cells: \(section.cells.visibleItems.count)")
-			for (rowIndex, item) in section.cells.visibleItems.enumerated() {
-				let cellType = type(of: item.cell)
-				let s = "    \(sectionIndex).\(rowIndex) \(cellType)"
-				result.append(s)
-			}
-		}
-		result.append("============")
-		return result.joined(separator: "\n")
 	}
 }

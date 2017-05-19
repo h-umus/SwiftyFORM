@@ -126,7 +126,7 @@ public class OptionPickerFormItem: FormItem {
 	}
 	
 	public func setSelectedOptionRow(_ selected: OptionRowModel?) {
-		SwiftyFormLog("option: \(selected?.title)")
+		SwiftyFormLog("option: \(String(describing: selected?.title))")
 		innerSelected = selected
 		syncCellWithValue(selected)
 	}

@@ -1,7 +1,12 @@
-<p align="center">
-  <img src="https://github.com/neoneye/SwiftyFORM/raw/master/Documentation/swiftyform_logo.png" alt="SwiftyFORM by Simon Strandgaard"/>
-</p>
+<h3 align="center">
+<a href="https://github.com/neoneye/SwiftyFORM">
+<img src="Documentation/swiftyform_logo.png" alt="SwiftyFORM by Simon Strandgaard"/>
+<br />
+SwiftyFORM
+</a>
+</h3>
 
+---
 
 [![Build Status](https://travis-ci.org/neoneye/SwiftyFORM.svg?branch=master)](https://travis-ci.org/neoneye/SwiftyFORM)
 [![Version](https://img.shields.io/cocoapods/v/SwiftyFORM.svg?style=flat)](http://cocoapods.org/pods/SwiftyFORM)
@@ -10,9 +15,7 @@
 [![Carthage compatible](https://img.shields.io/badge/Carthage-compatible-4BC51D.svg?style=flat)](https://github.com/Carthage/Carthage)
 
 
-## Introduction
-
-**SwiftyFORM** is an iOS framework for creating forms.
+**SwiftyFORM is an iOS framework for creating forms.**
 
 Because form code is hard to write, hard to read, hard to reason about. Has a slow turn around time. Is painful to maintain.
 
@@ -24,8 +27,8 @@ Development happens in the [`develop`](https://github.com/neoneye/SwiftyFORM/tre
 ## Requirements
 
 - iOS 9.0+
-- Xcode 8.0+
-- Swift 3.0+
+- Xcode 8.3.1+
+- Swift 3.1+
 
 
 ## Features
@@ -48,7 +51,7 @@ Development happens in the [`develop`](https://github.com/neoneye/SwiftyFORM/tre
 ```swift
 import SwiftyFORM
 class MyViewController: FormViewController {
-	override func populate(builder: FormBuilder) {
+	override func populate(_ builder: FormBuilder) {
 		builder += StaticTextFormItem().title("Hello").value("World")
 	}
 }
@@ -59,8 +62,8 @@ class MyViewController: FormViewController {
 ```swift
 import SwiftyFORM
 class MyViewController: FormViewController {
-	override func populate(builder: FormBuilder) {
-		builder += TextFieldFormItem().title("Email").placeholder("Please specify").keyboardType(.EmailAddress)
+	override func populate(_ builder: FormBuilder) {
+		builder += TextFieldFormItem().title("Email").placeholder("Please specify").keyboardType(.emailAddress)
 	}
 }
 ```
@@ -70,7 +73,7 @@ class MyViewController: FormViewController {
 ```swift
 import SwiftyFORM
 class MyViewController: FormViewController {
-	override func populate(builder: FormBuilder) {
+	override func populate(_ builder: FormBuilder) {
 		builder += ViewControllerFormItem().title("Go to view controller").viewController(FirstViewController.self)
 	}
 }
@@ -82,7 +85,7 @@ class MyViewController: FormViewController {
 
 ```swift
 class DatePickerBindingViewController: FormViewController {
-	override func populate(builder: FormBuilder) {
+	override func populate(_ builder: FormBuilder) {
 		builder += datePicker
 		builder += incrementButton
 		builder += decrementButton
@@ -157,7 +160,7 @@ class DatePickerBindingViewController: FormViewController {
 
 ```swift
 class ChangePasswordViewController: FormViewController {
-	override func populate(builder: FormBuilder) {
+	override func populate(_ builder: FormBuilder) {
 		builder.navigationTitle = "Password"
 		builder += SectionHeaderTitleFormItem().title("Your Old Password")
 		builder += passwordOld
@@ -237,7 +240,7 @@ $ pod install
 
 To integrate SwiftyFORM into your Xcode project using Carthage, specify it in your `Cartfile`:
 ```
-github "neoneye/SwiftyFORM" ~> 1.1
+github "neoneye/SwiftyFORM" ~> 1.4
 ```
 
 Then, run the following command:
@@ -254,3 +257,10 @@ Finally, add `SwiftyFORM.framework` (will be built by Carthage under `Carthage/B
 # 📄 CHANGE LOG
 
 ### See [changelog.md](https://github.com/neoneye/SwiftyFORM/blob/master/changelog.md) 👀
+
+
+# Help, feedback or suggestions?
+
+- [Open an issue](https://github.com/neoneye/SwiftyFORM/issues/new) if you need help, if you found a bug, or if you want to discuss a feature request.
+- [Open a PR](https://github.com/neoneye/SwiftyFORM/pull/new/master) if you want to make some change to SwiftyFORM.
+- Contact [@neoneye on Twitter](https://twitter.com/neoneye) for discussions, news & announcements about SwiftyFORM.
